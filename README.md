@@ -11,7 +11,7 @@ Highlight important elements within texts to improve the relevance of the genera
 Compare and evaluate the performance of Pretrained Encoders and Text-to-Text Transformers for summarization tasks.
 
 ## Project Structure
-
+```plaintext
 ├── data/                  # Folder containing dataset(s) for training and testing
 ├── models/                # Directory for storing pretrained models and checkpoints
 ├── notebooks/             # Jupyter notebooks for exploratory analysis and experimentation
@@ -22,7 +22,7 @@ Compare and evaluate the performance of Pretrained Encoders and Text-to-Text Tra
 ├── tests/                 # Unit tests for each component
 ├── README.md              # Project documentation 
 └── requirements.txt       # List of required Python packages
-
+```
 ## Installation 
 
 ### Step 1: Clone the Repository
