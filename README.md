@@ -1,14 +1,7 @@
-# Advanced Machine Learning Project : Text Summarization with Pretrained Encoders
+# Efficient Image Classification with Optimal Transport Methods
 
-## Overview
+This repository contains the implementation of a comparative study on image classification using Optimal Transport (OT) methods. The focus of the study is to explore how OT can be used as a novel approach for classifying handwritten digits using the MNIST dataset. We compare the performance of OT-based methods with traditional machine learning algorithms, such as Support Vector Machines (SVM) and Neural Networks, in terms of accuracy, speed, and computational efficiency.
 
-This project aims to create concise summaries of text, emphasizing key information, using advanced machine learning techniques. Leveraging pretrained encoders and text-to-text transformer models, we focus on identifying and preserving essential details while reducing redundancy. This repository contains code, configurations, and documentation to run, experiment, and evaluate our text summarization pipeline effectively.
-
-## Goals
-
-Develop a robust text summarization pipeline to generate accurate and coherent summaries.
-Highlight important elements within texts to improve the relevance of the generated summaries.
-Compare and evaluate the performance of Pretrained Encoders and Text-to-Text Transformers for summarization tasks.
 
 ## Project Structure
 ```plaintext
@@ -56,4 +49,8 @@ This model architecture leverages pretrained encoders to understand contextual i
 The text-to-text transformer model enables straightforward text manipulation. For summarization, we fine-tune it on our specific dataset, optimizing it to focus on the most relevant details and output coherent summaries.
 
 
-# Results 
+## Results 
+
+## Contacts 
+Authors : Lila Mekki, Théo Moret, Augustin Cablant
+Emails : lila.mekki / theo.moret / augustin.cablant dot ensae.fr
