@@ -20,8 +20,8 @@ This repository contains the implementation of a comparative study on image clas
 
 ### Step 1: Clone the Repository
  ```bash
-git clone https://github.com/username/text-summarization.git
-cd text-summarization
+git clone 
+cd 
  ```
 
 ### Step 2: Create a virtual environment 
