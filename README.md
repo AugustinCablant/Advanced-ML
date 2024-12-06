@@ -1,21 +1,86 @@
-# Efficient Image Classification with Optimal Transport Methods
+# Model Selection in Bandit Algorithms
 
-This repository contains the implementation of a comparative study on image classification using Optimal Transport (OT) methods. The focus of the study is to explore how OT can be used as a novel approach for classifying handwritten digits using the MNIST dataset. We compare the performance of OT-based methods with traditional machine learning algorithms, such as Support Vector Machines (SVM) and Neural Networks, in terms of accuracy, speed, and computational efficiency.
+## Overview
+This repository explores model selection in the context of bandit algorithms, focusing on adapting dynamically to the best learning algorithm among a set of candidates. Our goal is to minimize cumulative regret by balancing the exploration and exploitation trade-off, leveraging strategies like regret balancing.
+
+## Motivation 
+Bandit algorithms often rely on assumptions about the reward structure. Selecting the wrong model can lead to suboptimal decisions and high regret. For example:
+- LinUCB assumes linear reward mappings, which may not hold in all tasks.
+- UCB does not assume linearity but may underperform when a linear structure exists.
+Through regret balancing, we dynamically evaluate and select the best base algorithm at each step, ensuring regret remains close to optimal, even when the true reward structure is unknown.
+
+## Applications
+1. **Bandit Model Selection:**  
+   - Example: Deciding whether to use **UCB** (agnostic to reward structure) or **LinUCB** (assumes linear rewards) for a task.  
+   - Selecting the wrong algorithm can lead to significant cumulative regret due to mismatched assumptions.  
+
+2. **Representation Learning for Contextual Bandits:**  
+   - Example: Given multiple candidate **linear mappings**, determine which best represents the reward model of a contextual bandit.  
+   - The regret balancing strategy dynamically identifies the most suitable mapping, avoiding overcommitment to incorrect models.
+
+## Objectives
+
+The project focuses on:
+1. **Theory and Implementation:**
+   - Implement classic algorithms: **ε-greedy**, **UCB**, **LinUCB**.
+   - Explore the **Regret Balancing Strategy** for model selection.
+
+2. **Use Cases:**
+   - **Optimizing Exploration Rate for ε-greedy:**  
+     Use regret balancing to determine the best exploration rate.
+   - **Representation Learning with Regret Balancing:**  
+     Dynamically select the best state-action mapping for contextual bandits using LinUCB variants.
+
+3. **Real-World Testing:**  
+   Evaluate the regret balancing strategy on the [Open Bandit Dataset](https://github.com/st-tech/zr-obp), using pre-implemented bandit algorithms provided by ZOZO, Inc.
 
 
 ## Project Structure
 ```plaintext
-├── data/                  # Folder containing dataset(s) for training and testing
-├── models/                # Directory for storing pretrained models and checkpoints
-├── notebooks/             # Jupyter notebooks for exploratory analysis and experimentation
-├── src/                   # Source code for data processing, training, and evaluation
-│   ├── data_loader.py     # Module for loading and preprocessing text data
-│   ├── summarizer.py      # Main module for implementing the summarization models
-│   ├── utils.py           # Utility functions for data handling and model operations
-├── tests/                 # Unit tests for each component
-├── README.md              # Project documentation 
-└── requirements.txt       # List of required Python packages
+.
+├── algorithms/           # Implementation of bandit algorithms
+├── experiments/          # Scripts for running experiments
+├── data/                 # Dataset and preprocessing scripts
+├── config/               # Configuration files for experiments
+├── results/              # Output logs and performance metrics
+├── README.md             # Project documentation
+└── requirements.txt      # Python dependencies
+
 ```
+
+## Implementation Details
+
+### 1. Bandit Algorithms
+- **Algorithms Implemented:**
+  - **ε-greedy:** Balances exploration and exploitation using a tunable exploration rate.
+  - **UCB:** Uses confidence intervals to guide exploration.
+  - **LinUCB:** Assumes linear relationships between contexts, actions, and rewards.
+- **Experiments:**
+  - Run numerical experiments in various environments (i.i.d. rewards, fixed actions).
+  - Verify theoretical regret bounds for each algorithm.
+
+### 2. Regret Balancing Strategy
+- **Settings:**
+  - **Known Optimal Regret:** Implement regret balancing when the optimal regret is known.
+  - **Candidate Regret Bounds:** Extend the strategy to iteratively verify candidate regret bounds.
+- **Experiments:**
+  - Illustrate regret balancing as a standalone bandit algorithm.
+  - Evaluate performance in optimizing exploration rate and representation learning.
+
+### 3. Use Case 1: Exploration Rate for ε-greedy
+- **Objective:**
+  - Theoretically explore and experimentally validate the optimal exploration rate in various environments (e.g., i.i.d. actions, fixed action sets).
+
+### 4. Use Case 2: Representation Learning
+- **Objective:**
+  - Use regret balancing to identify the best linear mapping for contextual bandits.
+  - Extend experiments to include non-linear mappings and compare against classical LinUCB.
+
+### 5. Real-World Data Testing
+- **Dataset:** [Open Bandit Dataset](https://github.com/st-tech/zr-obp)
+- **Goal:** Compare regret balancing performance against standard methods (e.g., ε-greedy, LinUCB, Lin Thompson Sampling).
+
+
 ## Installation 
 
 ### Step 1: Clone the Repository
@@ -40,16 +105,12 @@ pip install -r requirements.txt
 python src/download_pretrained_models.py
  ```
 
-## Models Used
-
-1. Pretrained Encoders
-This model architecture leverages pretrained encoders to understand contextual information within a text. These encoders are adept at grasping nuanced information, making them ideal for generating summaries that capture key details accurately.
-
-2. Text-to-Text Transformer
-The text-to-text transformer model enables straightforward text manipulation. For summarization, we fine-tune it on our specific dataset, optimizing it to focus on the most relevant details and output coherent summaries.
 
 
 ## Results 
+
+## License 
+This project is licensed under the MIT License.
 
 ## Contacts 
 Authors : Lila Mekki, Théo Moret, Augustin Cablant
