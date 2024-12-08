@@ -1,3 +1,4 @@
+!cd "/Users/augustincablant/Documents/GitHub/Advanced-ML"
 from src.utils.imports import *
 
 class LinTS:
