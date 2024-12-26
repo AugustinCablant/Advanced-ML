@@ -8,7 +8,7 @@ class UCB:
       self.count_rewards = np.zeros(self.K)
       self.t = 0
 
-  def get_action(self,action_set):
+  def get_action(self, action_set):
       if self.t < self.K:
         action = self.t
       else:
@@ -19,7 +19,7 @@ class UCB:
       self.t += 1
       self.count_actions[action] += 1
       self.current_action = action #need to remember the *index* of the action now
-      return action_set[action,:]
+      return action_set[action]
 
   def receive_reward(self, action, reward):
       self.count_rewards[self.current_action] += reward

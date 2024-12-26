@@ -6,10 +6,12 @@ class RegretBalancingAgent:
         self.delta = delta
         self.counts = None
         self.rewards = None
+        self.reset()
 
     def reset(self):
         self.counts = np.zeros(self.K)  # Assuming 4 arms
         self.rewards = np.zeros(self.K)
+        self.t = 0
 
     def get_action(self, action_set, t):
         # Regret balancing strategy: balancing reward and exploration term
@@ -22,4 +24,4 @@ class RegretBalancingAgent:
         self.rewards[action] += reward
 
     def name(self):
-        return 'RB( delta = '+str(self.var)+')' 
+        return 'RB( delta = '+str(self.delta)+')' 

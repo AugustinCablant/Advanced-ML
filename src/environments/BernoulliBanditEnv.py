@@ -38,3 +38,14 @@ class BernoulliBanditEnv(gym.Env):
       Generates a set of vectors in dimension self.d
       """
       return list(np.arange(self.n_bandits))
+    
+    def get_reward(self, action):
+        """ sample reward given action and the model of this bandit environment
+        action: d-dimensional vector (action chosen by the learner)
+        """
+        return np.random.binomial(1, self.p_dist[action])
+    
+    def get_means(self):
+        return self.p_dist
+    
+    

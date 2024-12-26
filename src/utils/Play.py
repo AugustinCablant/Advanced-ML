@@ -1,6 +1,6 @@
 import numpy as np 
 
-def play(environment, agent, Nmc, T, pseudo_regret=True):
+def play(environment, agent, Nmc, T):
     """
     Play one Nmc trajectories over a horizon T for the specified agent.
     Return the agent's name (sring) and the collected data in an nd-array.
@@ -13,7 +13,7 @@ def play(environment, agent, Nmc, T, pseudo_regret=True):
         agent.reset()
         parameter_T = False
 
-        if agent.name().split('(')[0] in ['LinESGD', 'LinEGreedy']:
+        if agent.name().split('(')[0] in ['LinESGD', 'LinEGreedy', 'RB']:
            parameter_T = True
 
         for t in range(T):
@@ -24,15 +24,11 @@ def play(environment, agent, Nmc, T, pseudo_regret=True):
             else:
                 action = agent.get_action(action_set)
             reward = environment.get_reward(action)
-            agent.receive_reward(action,reward)
+            agent.receive_reward(action, reward)
 
             # compute instant (pseudo) regret
             means = environment.get_means()
-            best_reward = np.max(means)
-            if pseudo_regret:
-              # pseudo-regret removes some of the noise and corresponds to the metric studied in class
-              data[n,t] = best_reward - np.dot(environment.theta,action)
-            else:
-              data[n,t]= best_reward - reward # this can be negative due to the noise, but on average it's positive
+            best_reward_arm = np.max(means)
+            data[n,t]= np.random.binomial(1, best_reward_arm) - reward 
 
     return agent.name(), data
