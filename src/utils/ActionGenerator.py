@@ -1,6 +1,6 @@
 import numpy as np
 
-def ActionsGenerator(K,d, mean=None):
+def ActionsGenerator(K, d, mean=None):
     """
     K: int -- number of action vectors to be generated
     d : int -- dimension of the action space
