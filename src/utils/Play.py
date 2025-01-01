@@ -22,7 +22,10 @@ def play(environment, agent, Nmc, T):
             if parameter_T:
                action = agent.get_action(action_set, t)
             else:
-                action = agent.get_action(action_set)
+                if agent.name().split('(')[0] == 'EpsilonGreedy':
+                    action = agent.get_action(action_set, t)
+                else:
+                    action = agent.get_action(action_set)
             reward = environment.get_reward(action)
             agent.receive_reward(action, reward)
 
