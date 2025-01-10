@@ -57,6 +57,10 @@ class LinTS:
         self.mean = np.zeros(self.d)  # Prior mean
         self.hat_theta = np.random.multivariate_normal(self.mean, self.cov)  # Sampled parameter vector (prior)
 
+    def get_numberPlayed(self):
+        """ Return number of times this agent has been played. """
+        return self.t
+    
     def update_theta(self, chosen_arm, reward):
         """
         Updates the posterior mean and covariance based on the chosen action and observed reward.

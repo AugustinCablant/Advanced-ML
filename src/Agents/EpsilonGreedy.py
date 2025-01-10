@@ -54,6 +54,10 @@ class EpsilonGreedy:
         self.counts = np.zeros(self.K)  # Number of times each arm is selected
         self.q_values = np.zeros(self.K)  # Estimated rewards for each arm
 
+    def get_numberPlayed(self):
+        """ Return number of times this agent has been played. """
+        return self.t
+    
     def get_action(self, arms, t):
         """
         Selects an action based on the epsilon-greedy strategy.

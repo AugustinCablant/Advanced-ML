@@ -1,5 +1,5 @@
-from src.utils.imports import *
-from src.utils.imports import ActionGenerator as ActionsGenerator
+from utils.imports import *
+from utils.ActionGenerator import ActionsGenerator
 
 class LinearBandit:
 

@@ -6,4 +6,4 @@ from numpy.linalg import norm, pinv
 from math import log
 import random
 import sys
-from src.utils import *
+from utils import *

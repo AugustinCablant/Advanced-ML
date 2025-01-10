@@ -1,11 +1,12 @@
 import numpy as np 
 
 class RegretBalancingAgent:
-    def __init__(self, K, delta):
+    def __init__(self, K, delta, u_bound):
         self.K = K
         self.delta = delta
         self.counts = None
         self.rewards = None
+        self.u_bound = lambda x, d: u_bound(x, d)
         self.reset()
 
     def reset(self):
@@ -15,7 +16,7 @@ class RegretBalancingAgent:
 
     def get_action(self, action_set, t):
         # Regret balancing strategy: balancing reward and exploration term
-        u_t = np.sqrt(t / 2) * np.log(1 / self.delta)
+        u_t = self.u_bound(t, self.delta)
         confidence_bounds = self.rewards / (self.counts + 1e-5) + u_t / (self.counts + 1e-5)
         return np.argmax(confidence_bounds)
 

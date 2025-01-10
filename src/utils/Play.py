@@ -13,7 +13,7 @@ def play(environment, agent, Nmc, T):
         agent.reset()
         parameter_T = False
 
-        if agent.name().split('(')[0] in ['LinESGD', 'LinEGreedy', 'RB']:
+        if agent.name().split('(')[0] in ['LinESGD', 'LinEGreedy']:
            parameter_T = True
 
         for t in range(T):
@@ -24,10 +24,16 @@ def play(environment, agent, Nmc, T):
             else:
                 if agent.name().split('(')[0] == 'EpsilonGreedy':
                     action = agent.get_action(action_set, t)
+                elif agent.name().split('(')[0] == 'RB':
+                    action, learner = agent.get_action(action_set)
                 else:
                     action = agent.get_action(action_set)
+
             reward = environment.get_reward(action)
-            agent.receive_reward(action, reward)
+            if agent.name().split('(')[0] == 'RB':
+                agent.receive_reward(learner, action, reward)
+            else: 
+                agent.receive_reward(action, reward)
 
             # compute instant (pseudo) regret
             means = environment.get_means()

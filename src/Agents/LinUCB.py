@@ -1,4 +1,4 @@
-from src.utils.imports import * 
+from utils.imports import * 
 
 class LinUCB:
     """
@@ -36,7 +36,7 @@ class LinUCB:
             Returns the name of the algorithm ("LinUCB").
     """
 
-    def __init__(self, d, lambda_reg, delta=0.1, sigma=1., L=1.):
+    def __init__(self, d, lambda_reg, delta=0.1, sigma=1., L=1., prefactor = 1.):
         """
         Initializes the LinUCB algorithm.
 
@@ -52,6 +52,7 @@ class LinUCB:
         self.delta = delta
         self.sigma = sigma
         self.L = L
+        self.prefactor = prefactor
         self.reset()
 
     def reset(self):
@@ -65,6 +66,10 @@ class LinUCB:
         self.invcov = (1 / self.lambda_reg) * np.identity(self.d)  # Inverse covariance
         self.b_t = np.zeros(self.d)  # Accumulated reward-weighted features
 
+    def get_numberPlayed(self):
+        """ Return number of times this agent has been played. """
+        return self.t
+    
     def beta(self):
         """
         Computes the exploration bonus term.
@@ -87,7 +92,7 @@ class LinUCB:
             float: The UCB value for the action.
         """
         self.b_t = self.beta()
-        return np.dot(a, self.hat_theta) + self.b_t * np.sqrt(np.dot(a, np.dot(self.invcov, a)))
+        return self.prefactor*np.dot(a, self.hat_theta) + self.b_t * np.sqrt(np.dot(a, np.dot(self.invcov, a)))
 
     def get_action(self, arms):
         """
@@ -99,13 +104,9 @@ class LinUCB:
         Returns:
             numpy.ndarray: The feature vector of the selected action.
         """
-        K, _ = arms.shape
-        UCB = np.zeros(K)
-        for k in range(K):
-            a = arms[k]
-            UCB[k] = self.UCB(a)
-        A_t = arms[np.argmax(UCB)]
-        return A_t
+        index = np.argmax([self.UCB(arm) for arm in arms])
+        action = arms[index]
+        return action
 
     def receive_reward(self, chosen_arm, reward):
         """
@@ -128,4 +129,4 @@ class LinUCB:
         Returns:
             str: The name "LinUCB".
         """
-        return 'LinUCB'
+        return f'LinUCB({self.prefactor})'

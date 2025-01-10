@@ -8,6 +8,10 @@ class UCB:
       self.count_rewards = np.zeros(self.K)
       self.t = 0
 
+  def get_numberPlayed(self):
+        """ Return number of times this agent has been played. """
+        return self.t
+  
   def get_action(self, action_set):
       if self.t < self.K:
         action = self.t
