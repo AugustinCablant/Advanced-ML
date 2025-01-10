@@ -5,6 +5,7 @@ class RegretBalancing_Representation:
     def __init__(self, baseAlgo, K, u_bound, env):
         self.K = K
         self.baseAlgo = baseAlgo
+        self.number_agents = len(baseAlgo)
         self.u_bound = lambda t,K : u_bound(t, K)
         self.env = env
         self.reset()
@@ -12,6 +13,7 @@ class RegretBalancing_Representation:
     def reset(self):
         self.counts = np.zeros(self.K)  # Assuming 4 arms
         self.rewards = np.zeros(self.K)
+        self.rewards_per_agent = np.zeros(self.number_agents)
         self.t = 0
 
     def get_action(self, arms):
@@ -49,8 +51,9 @@ class RegretBalancing_Representation:
   
 
     def receive_reward(self, learner_idx, action, reward): #Need to include the update of choosen learner
-        
         self.baseAlgo[learner_idx].receive_reward(action, reward)
+        self.rewards_per_agent[learner_idx] += reward
+        self.counts[learner_idx] += 1
         return None
 
     def name(self):
