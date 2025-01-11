@@ -1,4 +1,5 @@
 from utils.Play import play
+from utils.play_RB import play_RB
 
 def experiment(environment, agents, Nmc, T):
     """
@@ -8,7 +9,10 @@ def experiment(environment, agents, Nmc, T):
     all_data = {}
 
     for agent in agents:
-        agent_id, regrets = play(environment, agent, Nmc, T)
+        if agent.name() == 'RB':
+            agent_id, regrets = play_RB(environment, agent, Nmc, T)
+        else:
+            agent_id, regrets = play(environment, agent, Nmc, T)
 
         all_data[agent_id] = regrets
 
