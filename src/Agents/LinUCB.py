@@ -63,7 +63,7 @@ class LinUCB:
         self.t = 0
         self.hat_theta = np.zeros(self.d)  # Estimated parameters
         self.cov = self.lambda_reg * np.identity(self.d)  # Covariance matrix
-        self.invcov = (1 / self.lambda_reg) * np.identity(self.d)  # Inverse covariance
+        self.invcov = np.identity(self.d)  # Inverse covariance
         self.b_t = np.zeros(self.d)  # Accumulated reward-weighted features
 
     def get_numberPlayed(self):
@@ -79,7 +79,7 @@ class LinUCB:
         """
         return self.sigma * np.sqrt(
             2 * np.log(1 / self.delta) + self.d * np.log(1 + self.t * (self.L / (self.d * self.lambda_reg)))
-        ) + np.sqrt(self.lambda_reg) * norm(self.hat_theta)
+        ) + np.sqrt(self.lambda_reg)
 
     def UCB(self, a):
         """
@@ -91,8 +91,8 @@ class LinUCB:
         Returns:
             float: The UCB value for the action.
         """
-        self.b_t = self.beta()
-        return self.prefactor*np.dot(a, self.hat_theta) + self.b_t * np.sqrt(np.dot(a, np.dot(self.invcov, a)))
+        beta = self.beta()
+        return self.prefactor*np.dot(a, self.hat_theta) + np.sqrt(np.dot(a, self.invcov@a)) * beta
 
     def get_action(self, arms):
         """

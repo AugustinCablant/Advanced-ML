@@ -4,7 +4,7 @@ import seaborn as sns
 
 colors = sns.color_palette('colorblind')
 
-def plot_regret(regrets, logscale=False, lb=None,q=10):
+def plot_regret(regrets, logscale = False, lb = None, q = 10, save_pdf = None):
     """
     regrets must be a dict {'agent_id':regret_table}
     """
@@ -36,4 +36,6 @@ def plot_regret(regrets, logscale=False, lb=None,q=10):
     plt.xlabel('time steps')
     plt.ylabel('Cumulative Regret')
     plt.legend()
+    if save_pdf != None:
+        plt.savefig(f'{save_pdf}')
     reg_plot.show()

@@ -29,7 +29,7 @@ class EpsilonGreedy:
             Returns the name of the algorithm, including details of the exploration strategy.
     """
 
-    def __init__(self, K, eps = 0.1, FixedEpsilon = False, m = 1):
+    def __init__(self, K, eps = 0.1, FixedEpsilon = False, decay_param = None, Delta = None, m = 1):
         """
         Initializes the EpsilonGreedy algorithm.
 
@@ -43,6 +43,8 @@ class EpsilonGreedy:
         self.eps = eps
         self.FixedEpsilon = FixedEpsilon
         self.m = m
+        self.decay_param = decay_param
+        self.Delta = Delta
         self.reset()
 
     def reset(self):
@@ -71,8 +73,16 @@ class EpsilonGreedy:
         if t < self.m * self.K:  # Initial exploration phase
             return t % self.K
         else:
-            if self.FixedEpsilon:
+
+            if self.Delta != None:
+                self.eps = min(1, 5 * self.K / (t * self.Delta**2))
+
+            if not self.FixedEpsilon and self.decay_param == None and self.Delta == None:
                 self.eps = min(1, 5 * self.K / (t * (np.min(self.q_values) ** 2 + 1e-10)))
+            
+            if not self.FixedEpsilon and self.decay_param != None and self.Delta == None:
+                self.eps = self.decay_param/t
+
             if np.random.random() < self.eps:  # Exploration step
                 index = np.random.randint(self.K)
                 return arms[index]
@@ -100,5 +110,14 @@ class EpsilonGreedy:
         Returns:
             str: The name of the algorithm, with details of epsilon and exploration strategy.
         """
-        strategy = "Dynamic" if self.FixedEpsilon else "Fixed"
-        return f"EpsilonGreedy({strategy} epsilon = {self.eps}, m = {self.m})"
+        if self.FixedEpsilon and self.Delta == None:
+            return f"EpsilonGreedy(Fixed $\epsilon = {self.eps}$, $m = {self.m}$)"
+        elif not self.FixedEpsilon and self.decay_param != None and self.Delta == None:
+            return f"EpsilonGreedy(Decay $c={self.decay_param}$, $m = {self.m}$)"
+        elif self.Delta != None:
+            return f"EpsilonGreedy(Optimal)"
+        else:
+            return f"EpsilonGreedy(Dynamic $\epsilon$, $m = {self.m}$)"
+
+
+        

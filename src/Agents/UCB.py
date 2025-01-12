@@ -1,9 +1,9 @@
 import numpy as np 
 
 class UCB:
-  def __init__(self, K, var):
+  def __init__(self, K, alpha):
       self.K = K
-      self.var = var
+      self.alpha = alpha
       self.count_actions = np.zeros(self.K)
       self.count_rewards = np.zeros(self.K)
       self.t = 0
@@ -17,7 +17,7 @@ class UCB:
         action = self.t
       else:
         empirical_means = self.count_rewards / self.count_actions
-        ucbs = np.sqrt(6 * self.var * np.log(self.t) / self.count_actions) # 6 could be replaced by a 2, try it out :)
+        ucbs = np.sqrt(self.alpha * np.log(self.t) / self.count_actions) 
         action = np.argmax(empirical_means + ucbs)
 
       self.t += 1
@@ -34,5 +34,5 @@ class UCB:
       self.t = 0
 
   def name(self):
-      return 'UCB('+str(self.var)+')'  
+      return 'UCB('+str(self.alpha)+')'  
 
