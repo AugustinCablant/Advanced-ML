@@ -2,7 +2,7 @@ import numpy as np
 
 class RegretBalancingAgent:
     """Regret Bound Balancing and Elimination Algorithm."""
-    def __init__(self, learners, K, delta, u_bounds, c, env):
+    def __init__(self, learners, K, delta, u_bounds, env):
         self.learners = learners  # list of base learners
         self.nb_learners = len(learners)  # number of base learners
         self.K = K  # number of arms
@@ -31,7 +31,12 @@ class RegretBalancingAgent:
         i_t = np.argmin(self.G)
 
         # play learner i_t 
-        action = self.ActiveLearners[i_t].get_action(action_set, t)
+        if self.ActiveLearners[i_t].name().split('(')[0] == 'LinUCB':
+            action = self.ActiveLearners[i_t].get_action(action_set)
+        elif self.ActiveLearners[i_t].name().split('(')[0] == 'UCB':
+            action = self.ActiveLearners[i_t].get_action(action_set)
+        else:
+            action = self.ActiveLearners[i_t].get_action(action_set, t)
         reward = self.env.get_reward(action)
         return i_t, action, reward
     
