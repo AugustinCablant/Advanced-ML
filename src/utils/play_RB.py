@@ -14,10 +14,11 @@ def play_RB(environment, agent, Nmc, T):
 
         for t in range(T):
             action_set = environment.get_action_set()
-            action = agent.get_action(action_set, t)
-            action, learner = agent.get_action(action_set)
+            #action = agent.get_action(action_set, t)
+            i_t, action, reward = agent.get_action(action_set, t)
             reward = environment.get_reward(action)
-            #agent.receive_reward(learner, action, reward) we don't need it with the regret balancing method
+            agent.receive_reward(i_t, action, reward) 
+        
             # compute instant (pseudo) regret
             means = environment.get_means()
             best_reward_arm = np.max(means)

@@ -46,7 +46,6 @@ class RegretBalancing_Representation:
         chosenLearner_idx = np.argmin(empiricalRegret)
         chosenLearner = learners[chosenLearner_idx]
         chosenAction  = chosenLearner.get_action(arms)
-
         return chosenAction, chosenLearner_idx
   
 
