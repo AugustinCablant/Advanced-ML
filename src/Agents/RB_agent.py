@@ -23,9 +23,10 @@ class RegretBalancingAgent:
         
 
     def get_action(self, action_set, t):
+
         set_to_maximize_index = [(self.R[i] / self.N[i]) + (self.u_bounds[i](self.t) / self.N[i]) for i in range(self.nb_learners)]
         j_t = np.argmax(set_to_maximize_index)
-        b_t = self.R[j_t] / (self.N[j_t] + 10 ** (-6)) + self.u_bounds[j_t](self.t) / (self.N[j_t] + 10 ** (-6))
+        b_t = set_to_maximize_index[j_t]
         # Empirical regret of base i at round t:
         self.G = self.N * b_t - self.R
         i_t = np.argmin(self.G)
@@ -37,8 +38,8 @@ class RegretBalancingAgent:
             action = self.ActiveLearners[i_t].get_action(action_set)
         else:
             action = self.ActiveLearners[i_t].get_action(action_set, t)
-        reward = self.env.get_reward(action)
-        return i_t, action, reward
+       
+        return i_t, action
     
     def receive_reward(self, i_t, action, reward):
         self.ActiveLearners[i_t].receive_reward(action, reward)
