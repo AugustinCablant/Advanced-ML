@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 def RunRegretBalancingEpsilonGreedy(df, history, learners=[0.5, 0.2, 0.1, 0.01, 0.05, 0.001], slate_size=5, batch_size=50, verbose=False, plot=True):
     history_init = history.copy()
+    history_init_RB = history.copy()
     arms = df.movieId.unique()
     K = len(arms)
     R = np.zeros(len(learners))
@@ -32,10 +33,10 @@ def RunRegretBalancingEpsilonGreedy(df, history, learners=[0.5, 0.2, 0.1, 0.01, 
         G = N * b_t - R
         i_t = np.argmin(G)
 
-        recs = epsilon_greedy_policy(df=history.loc[history.t<=t,], arms=df.movieId.unique(), epsilon=learners[i_t], slate_size=slate_size, batch_size=batch_size)
+        recs = epsilon_greedy_policy(df=history_init_RB.loc[history_init_RB.t<=t,], arms=df.movieId.unique(), epsilon=learners[i_t], slate_size=slate_size, batch_size=batch_size)
         N[i_t] += 1
         # Score the recommendations and update history
-        history, action_score = score(history, df, t, batch_size, recs)
+        history_init_RB, action_score = score(history_init_RB, df, t, batch_size, recs)
 
         # Accumulate rewards from action scores
         if action_score is not None:
@@ -48,14 +49,14 @@ def RunRegretBalancingEpsilonGreedy(df, history, learners=[0.5, 0.2, 0.1, 0.01, 
         plt.plot(np.cumsum(rewards), label = 'Cumulative Reward of Regret Balancing')
         for epsilon in learners:
             history_init_epsilon = history_init.copy()
-            rewards_epsilon, history_epsilon = run_epsilon_policy(df, history_init_epsilon, epsilon = epsilon, slate_size = 5, batch_size = batch_size, verbose = False, plot = False, fixed_epsilon=False)
+            rewards_epsilon, history_epsilon = run_epsilon_policy(df, history_init_epsilon, epsilon = epsilon, slate_size = slate_size, batch_size = batch_size, verbose = False, plot = False, fixed_epsilon=False)
             plt.plot(np.cumsum(rewards_epsilon), label = 'Cumulative Reward of Epsilon Greedy with Epsilon = {}'.format(epsilon))  
         plt.xlabel('Time Step')
         plt.ylabel('Cumulative Reward')
         plt.title('Cumulative Reward over Time Step for Regret Balancing')
         plt.legend()
         plt.show()
-    return rewards, history
+    return rewards, history_init_RB
 
 
 def score(history, df, t, batch_size, recs):
