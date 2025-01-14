@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def RunRegretBalancingEpsilonGreedy(df, history, learners=[0.1, 0.01, 0.05, 0.001], slate_size=5, batch_size=50, verbose=False, plot=True):
+def RunRegretBalancingEpsilonGreedy(df, history, learners=[0.5, 0.2, 0.1, 0.01, 0.05, 0.001], slate_size=5, batch_size=50, verbose=False, plot=True):
     history_init = history.copy()
     arms = df.movieId.unique()
     K = len(arms)
@@ -48,7 +48,7 @@ def RunRegretBalancingEpsilonGreedy(df, history, learners=[0.1, 0.01, 0.05, 0.00
         plt.plot(np.cumsum(rewards), label = 'Cumulative Reward of Regret Balancing')
         for epsilon in learners:
             history_init_epsilon = history_init.copy()
-            rewards_epsilon, history_epsilon = run_epsilon_policy(df, history_init_epsilon, epsilon = epsilon, slate_size = 5, batch_size = 10000, verbose = False, plot = False, fixed_epsilon=False)
+            rewards_epsilon, history_epsilon = run_epsilon_policy(df, history_init_epsilon, epsilon = epsilon, slate_size = 5, batch_size = batch_size, verbose = False, plot = False, fixed_epsilon=False)
             plt.plot(np.cumsum(rewards_epsilon), label = 'Cumulative Reward of Epsilon Greedy with Epsilon = {}'.format(epsilon))  
         plt.xlabel('Time Step')
         plt.ylabel('Cumulative Reward')

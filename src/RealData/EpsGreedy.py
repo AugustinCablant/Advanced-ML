@@ -101,14 +101,13 @@ def run_epsilon_policy(df, history, epsilon, slate_size, batch_size, verbose=Fal
             print(f"Processing step {t}...")
 
         if fixed_epsilon==False:
-            c = 1e5
             if t == 0:
-                epsilon = c
+                epsilon_ = epsilon 
             else:
-                epsilon = c / t
+                epsilon_ = epsilon / t
 
         # Choose arms (recommendations) using epsilon-greedy policy
-        recs = epsilon_greedy_policy(df=history.loc[history.t<=t,], arms=df.movieId.unique(), epsilon=epsilon, slate_size=slate_size, batch_size=batch_size)
+        recs = epsilon_greedy_policy(df=history.loc[history.t<=t,], arms=df.movieId.unique(), epsilon=epsilon_, slate_size=slate_size, batch_size=batch_size)
 
         # Score the recommendations and update history
         history, action_score = score(history, df, t, batch_size, recs)
