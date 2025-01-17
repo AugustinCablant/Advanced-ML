@@ -41,6 +41,12 @@ The project focuses on:
    Evaluate the regret balancing strategy on the [Open Bandit Dataset](https://github.com/st-tech/zr-obp), using pre-implemented bandit algorithms provided by ZOZO, Inc.
 
 
+<picture>
+        <source media="(prefers-color-scheme: dark) srcset= "https://github.com/AugustinCablant/Advanced-ML/blob/main/pictures/RealData.png">
+        <source media="(prefers-color-scheme: light)" srcset="https://github.com/AugustinCablant/Advanced-ML/blob/main/pictures/RealData.png">
+        <img alt="UCB vs linUCB vs RB" src="https://github.com/AugustinCablant/Advanced-ML/blob/main/pictures/RealData.png">
+</picture>
+
 ## Project Structure
 ```plaintext
 .
