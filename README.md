@@ -90,8 +90,8 @@ The project focuses on:
 
 ### 4. Use Case 2: Representation Learning
 - **Objective:**
-  - Use regret balancing to identify the best linear mapping for contextual bandits.
-  - Extend experiments to include non-linear mappings and compare against classical LinUCB.
+  - Use RB with two bandit algorithms, one contextual and one non-contextual, to avoid over commiting to a wrong representation of the reward structure. 
+  - ⁠Application to linear environment with linUcb and UCB. 
 
 ### 5. Real-World Data Testing
 - **Dataset:** [Open Bandit Dataset](https://github.com/st-tech/zr-obp)
@@ -132,6 +132,12 @@ Below are the references cited in this project:
 2. Aldo Pacchiano, Christoph Dann, Claudio Gentile, and Peter Bartlett. **Regret bound balancing and elimination for model selection in bandits and RL.** *arXiv preprint arXiv:2006.05491*, 2020.
 
 3. Lihong Li, Wei Chu, John Langford, and Xuanhui Wang. **Unbiased offline evaluation of contextual-bandit-based news article recommendation algorithms.** In *Proceedings of the fourth ACM international conference on Web search and data mining, WSDM'11*, page 297–306. ACM, February 2011.
+
+4. [Reinforcement Learning course](https://emiliekaufmann.github.io/teaching.html)
+
+5. [Offline Evaluation of Multi-Armed Bandit Algorithms in Python using Replay](https://jamesrledoux.com/algorithms/offline-bandit-evaluation/)
+   
+6. [Introduction to Reinforcement Learning](https://www.cvernade.com/teaching)
 
 
 ## License 
