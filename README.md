@@ -14,6 +14,12 @@ Through regret balancing, we dynamically evaluate and select the best base algor
    - Example: Deciding whether to use **UCB** (agnostic to reward structure) or **LinUCB** (assumes linear rewards) for a task.  
    - Selecting the wrong algorithm can lead to significant cumulative regret due to mismatched assumptions.  
 
+<picture>
+        <source media="(prefers-color-scheme: dark) srcset= "https://github.com/AugustinCablant/Advanced-ML/blob/main/pictures/UCB_RB.png">
+        <source media="(prefers-color-scheme: light)" srcset="https://github.com/AugustinCablant/Advanced-ML/blob/main/pictures/UCB_RB.png">
+        <img alt="UCB vs linUCB vs RB" src="https://github.com/AugustinCablant/Advanced-ML/blob/main/pictures/UCB_RB.png">
+</picture>
+
 2. **Representation Learning for Contextual Bandits:**  
    - Example: Given multiple candidate **linear mappings**, determine which best represents the reward model of a contextual bandit.  
    - The regret balancing strategy dynamically identifies the most suitable mapping, avoiding overcommitment to incorrect models.
