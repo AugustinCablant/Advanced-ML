@@ -50,13 +50,18 @@ The project focuses on:
 ## Project Structure
 ```plaintext
 .
-├── algorithms/           # Implementation of bandit algorithms
-├── experiments/          # Scripts for running experiments
-├── data/                 # Dataset and preprocessing scripts
-├── config/               # Configuration files for experiments
-├── results/              # Output logs and performance metrics
-├── README.md             # Project documentation
-└── requirements.txt      # Python dependencies
+├── data/                    # A folder containing the data we've used
+├── figures/                 # The figures we've drawn
+├── intermediate_notebooks/  # Intermediate notebook that we've created for the main notebook  
+├── papers/                  # Main papers we've used
+├── pictures/                # Some pictures for the Readme
+├── src
+   ├── Agents                # Multi-armed bandit agents
+   ├── environments          # Multi-armed bandit environment
+   ├── RealData              # Code for the Real-World Data Testing
+   └── utils                 # Usefull functions for the repository
+├── README.md                # Project documentation
+└── requirements.txt         # Python dependencies
 
 ```
 
@@ -90,7 +95,7 @@ The project focuses on:
 
 ### 5. Real-World Data Testing
 - **Dataset:** [Open Bandit Dataset](https://github.com/st-tech/zr-obp)
-- **Goal:** Compare regret balancing performance against standard methods (e.g., ε-greedy, LinUCB, Lin Thompson Sampling).
+- **Goal:** Compare regret balancing performance against standard methods (e.g., ε-greedy, UCB).
 
 
 ## Installation 
@@ -112,14 +117,22 @@ source env/bin/activate  # On Windows, use `env\Scripts\activate`
 pip install -r requirements.txt
  ```
 
-### Step 4: Download Pretrained Models
- ```bash
-python src/download_pretrained_models.py
- ```
-
-
-
 ## Results 
+
+In this project, we explored the foundational theory of multi-armed bandits, starting with an introduction to standard environments and their associated algorithms. We implemented these environments and algorithms to illustrate their properties through numerical simulations. By highlighting the significant assumptions required by each algorithm to achieve optimal regret bounds, we identified the need for a more flexible approach.
+
+To address this, we introduced the Regret Balancing method, which we validated through custom source code for numerical testing. Our results demonstrate its ability to achieve near-optimal regret while relying on fewer assumptions. Furthermore, we tested the method on real-world data, obtaining conclusive and promising outcomes. 
+
+## References
+
+Below are the references cited in this project:
+
+1. Yasin Abbasi-Yadkori, Aldo Pacchiano, and My Phan. **Regret balancing for bandit and RL model selection.** *arXiv preprint arXiv:2006.09479*, 2020. *(The exact preprint URL or journal details need verification if available.)*
+
+2. Aldo Pacchiano, Christoph Dann, Claudio Gentile, and Peter Bartlett. **Regret bound balancing and elimination for model selection in bandits and RL.** *arXiv preprint arXiv:2006.05491*, 2020.
+
+3. Lihong Li, Wei Chu, John Langford, and Xuanhui Wang. **Unbiased offline evaluation of contextual-bandit-based news article recommendation algorithms.** In *Proceedings of the fourth ACM international conference on Web search and data mining, WSDM'11*, page 297–306. ACM, February 2011.
+
 
 ## License 
 This project is licensed under the MIT License.
